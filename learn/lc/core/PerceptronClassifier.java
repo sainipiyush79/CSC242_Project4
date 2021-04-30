@@ -1,8 +1,8 @@
 package learn.lc.core;
  
 import java.util.Arrays;
- 
-import learn.math.util.VectorOps;
+// import learn.lc.core; 
+
  
 public class PerceptronClassifier extends LinearClassifier {
   
@@ -25,7 +25,7 @@ public class PerceptronClassifier extends LinearClassifier {
        // wi ←wi+α(y−hw(x))×xi
  
        for (int i = 0; i<x.length; i++){
-           weights[i] = weights[i] + alpha(y-threshold(VectorOps.dot1(weights, x)))*x[i];
+           weights[i] = weights[i] + alpha*(y-threshold(dot1(weights, x)))*x[i];
                }
  
        // This must be implemented by you
@@ -42,6 +42,26 @@ public class PerceptronClassifier extends LinearClassifier {
            return 0;
        }
        // This must be implemented by you
+   }
+
+   	/**
+	 * For vector w of length n and vector x of length n-1,
+	 * return w \cdot [1,x]. It's easier to do this in code
+	 * than to constantly allocate and copy new vectors for
+	 * the ``extended'' x vector.
+	 */
+	static public double dot1(double[] w, double[] x) {
+		double sum = w[0];
+		for (int i=1; i < w.length; i++) {
+			sum += w[i] * x[i-1];
+		}
+		return sum;
+	}
+
+
+
+   public static void main(String args[]){
+    System.out.println("hi");
    }
   
 }
