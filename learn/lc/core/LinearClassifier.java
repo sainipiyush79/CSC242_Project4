@@ -47,12 +47,17 @@ abstract public class LinearClassifier {
 	 */
 	public void train(List<Example> examples, int nsteps, LearningRateSchedule schedule) {
 		Random random = new Random();
+
+		
 		int n = examples.size();
 		for (int i=1; i <= nsteps; i++) {
 			int j = random.nextInt(n);
 			Example ex = examples.get(j);
 			this.update(ex.inputs, ex.output, schedule.alpha(i));
 			this.trainingReport(examples, i,  nsteps);
+		}
+		for(int i=0;i< examples.size();i++){
+			System.out.println(examples.get(i).toString());
 		}
 	}
 
@@ -71,7 +76,7 @@ abstract public class LinearClassifier {
 	 * Subclasses can override it to gather statistics or update displays.
 	 */
 	protected void trainingReport(List<Example> examples, int stepnum, int nsteps) {
-		//System.out.println(stepnum + "\t" + accuracy(examples));
+		System.out.println(stepnum + "\t" + accuracy(examples));
 	}
 	
 	/**
@@ -104,5 +109,5 @@ abstract public class LinearClassifier {
 		}
 		return (double)ncorrect / examples.size();
 	}
-
+ 
 }

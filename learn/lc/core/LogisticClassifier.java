@@ -18,6 +18,9 @@ public class LogisticClassifier extends LinearClassifier {
 	 */
 	public void update(double[] x, double y, double alpha) {
 		// This must be implemented by you
+
+
+		
 	}
 	
 	/**

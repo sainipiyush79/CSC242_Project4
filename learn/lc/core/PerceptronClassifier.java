@@ -2,7 +2,7 @@ package learn.lc.core;
  
 import java.util.Arrays;
 // import learn.lc.core; 
-
+ 
  
 public class PerceptronClassifier extends LinearClassifier {
   
@@ -21,27 +21,22 @@ public class PerceptronClassifier extends LinearClassifier {
  
     //mesay hw(x)=Threshold(w·x)
    public void update(double[] x, double y, double alpha) {
-       System.out.println("HIE");
        // wi ←wi+α(y−hw(x))×xi
- 
-       for (int i = 0; i<x.length; i++){
+       for (int i = 0; i<weights.length; i++){
            weights[i] = weights[i] + alpha*(y-threshold(dot1(weights, x)))*x[i];
-               }
- 
-       // This must be implemented by you
+        }
    }
   
    /**
     * A PerceptronClassifier uses a hard 0/1 threshold.
     */
    public double threshold(double z) {
-       if (z>=0){
-           return 1;
+       if (z>=0.0){
+           return 1.0;
        }
        else {
-           return 0;
+           return 0.0;
        }
-       // This must be implemented by you
    }
 
    	/**
