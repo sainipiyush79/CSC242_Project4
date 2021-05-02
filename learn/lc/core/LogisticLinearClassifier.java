@@ -1,21 +1,20 @@
 package learn.lc.core;
-
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.ArrayList;
 
 import learn.math.util.VectorOps;
 
-abstract public class LinearClassifier {
+abstract public class LogisticLinearClassifier {
 	
 	public double[] weights;
 	public ArrayList<Double> trainArr = new ArrayList<Double>();
 
-	public LinearClassifier(double[] weights) {
+	public LogisticLinearClassifier(double[] weights) {
 		this.weights = weights;
 	}
 	
-	public LinearClassifier(int ninputs) {
+	public LogisticLinearClassifier(int ninputs) {
 		this.weights = new double[ninputs];
 	}
 	
@@ -73,11 +72,11 @@ abstract public class LinearClassifier {
 	 * Subclasses can override it to gather statistics or update displays.
 	 */
 	protected void trainingReport(List<Example> examples, int stepnum, int nsteps) {
-		double acc=accuracy(examples);
+		double acc= accuracy(examples);
 		trainArr.add(acc);
 		// System.out.println(stepnum + "\t" + acc);
 	}
-	
+
 	/**
 	 * Return the squared error per example for this Linearlassifier
 	 * using the L2 (squared error) loss function.
@@ -99,14 +98,10 @@ abstract public class LinearClassifier {
 	 * a hard threshold. Use with care.
 	 */
 	public double accuracy(List<Example> examples) {
-		int ncorrect = 0;
+		double ncorrect = 0;
 		for (Example ex : examples) {
-			//0 or 1
 			double result = eval(ex.inputs);
-			// based on the eval function(which is based on the H) does the example output match the H output
-			if (result == ex.output) {
-				ncorrect += 1;
-			}
+			ncorrect += result;
 		}
 		return (double)ncorrect / examples.size();
 	}

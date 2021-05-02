@@ -5,7 +5,6 @@ import java.util.Arrays;
  
  
 public class PerceptronClassifier extends LinearClassifier {
-  
    public PerceptronClassifier(double[] weights) {
        super(weights);
    }
@@ -23,7 +22,7 @@ public class PerceptronClassifier extends LinearClassifier {
    public void update(double[] x, double y, double alpha) {
        // wi ←wi+α(y−hw(x))×xi
        for (int i = 0; i<weights.length; i++){
-           weights[i] = weights[i] + alpha*(y-threshold(dot1(weights, x)))*x[i];
+            this.weights[i] = this.weights[i] + alpha*(y-eval(x))*x[i];
         }
    }
   
