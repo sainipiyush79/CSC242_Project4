@@ -35,7 +35,7 @@ abstract public class LinearClassifier {
 	 * This value is: Threshold(w \cdot x)
 	 */
 	public double eval(double[] x) {
-		return threshold(VectorOps.dot(this.weights, x));
+		return threshold(VectorOps.dot(this.weights, x));  
 	}
 	
 	/**
@@ -76,6 +76,7 @@ abstract public class LinearClassifier {
 	 * Subclasses can override it to gather statistics or update displays.
 	 */
 	protected void trainingReport(List<Example> examples, int stepnum, int nsteps) {
+		//System.out.println("OOKE");
 		System.out.println(stepnum + "\t" + accuracy(examples));
 	}
 	
@@ -103,10 +104,15 @@ abstract public class LinearClassifier {
 		int ncorrect = 0;
 		for (Example ex : examples) {
 			double result = eval(ex.inputs);
+		//	System.out.println("Result:" + result);
+		//	System.out.println("ex.output: " + ex.output);
 			if (result == ex.output) {
+	
 				ncorrect += 1;
 			}
+
 		}
+		System.out.println("ncorrect:" + ncorrect);
 		return (double)ncorrect / examples.size();
 	}
  
