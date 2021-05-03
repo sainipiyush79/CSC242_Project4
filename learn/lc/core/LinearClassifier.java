@@ -111,7 +111,7 @@ abstract public class LinearClassifier {
 			}
 
 		}
-		System.out.println("ncorrect:" + ncorrect);
+		// System.out.println("ncorrect:" + ncorrect);
 		return (double)ncorrect / examples.size();
 	}
  
