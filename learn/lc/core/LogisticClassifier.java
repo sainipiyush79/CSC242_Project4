@@ -19,8 +19,9 @@ public class LogisticClassifier extends LogisticLinearClassifier {
 	public void update(double[] x, double y, double alpha) {
 		// wi ← wi + α (y − hw(x))×hw(x)(1 − hw(x))×xi
 		// This must be implemented by you
+		double e= eval(x);
 		for(int i=0;i<weights.length;i++){
-			this.weights[i]= this.weights[i]+alpha*(y-eval(x))*eval(x)*(1-eval(x))*x[i];
+			this.weights[i]= this.weights[i]+alpha*(y-e)*e*(1-e)*x[i];
 		}
 		
 	}

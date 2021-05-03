@@ -15,19 +15,19 @@ class Test extends JFrame{
     public ArrayList<Double> arr = new ArrayList<Double>();
     public int x=0;
     public int y=0;
-    // public Test(){
-    //     this.setTitle("The Cool Graph");
-    //     this.setSize(500,500);
-    //     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    //     this.setVisible(true);
-    // }
     public void paint(Graphics g){
+        int incrementX=0;
+        int yOffest=15;
         
+        if(arr.size()!=0){
+            incrementX= arr.size()/x;
+        }
+        g.drawLine(0,29,x,29);
+        System.out.println(incrementX);
         for(int i=1;i<arr.size()-1;i++){
-            System.out.println(arr.get(i-1)*300);
-            int y1= y-(int)(arr.get(i-1)*y);
-            int y2= y-(int)(arr.get(i)*y);
-            g.drawLine(i-1,y1,i,y2);
+            int y1= y-(int)(arr.get(i-1)*y)+yOffest;
+            int y2= y-(int)(arr.get(i)*y)+yOffest;
+            g.drawLine((i-1)/incrementX,y1,i/incrementX,y2);
         }
     }
 
@@ -42,9 +42,14 @@ class Test extends JFrame{
             while (sc.hasNextLine()) {
                 String full = sc.nextLine();
                 String[] split= full.split(",");
-                double[] input= new double[split.length-1];
+                double[] input= new double[split.length];
                 for(int i=0; i<input.length;i++){
-                    input[i]=Double.parseDouble(split[i]);
+                    if(i==0){
+                        input[i]=1.0;
+                    }
+                    else{
+                        input[i]=Double.parseDouble(split[i-1]);
+                    }
                 }
                 double output= Double.parseDouble(split[split.length-1]);
                 Example example= new Example(input,output);
@@ -60,11 +65,13 @@ class Test extends JFrame{
         //DONEEEEE
         int x=700;
         int y=500;
+        
         PerceptronClassifier perceptron= new PerceptronClassifier(listOfExamples.get(0).inputs.length);
         perceptron.train(listOfExamples,700,0.95);
-
-        // LogisticClassifier logistic= new LogisticClassifier(listOfExamples.get(0).inputs.length);
-        // logistic.train(listOfExamples,5000,1);
+        
+        LogisticClassifier logistic= new LogisticClassifier(listOfExamples.get(0).inputs.length);
+        logistic.train(listOfExamples,100000,0.95);
+        
         Test test= new Test();
         test.setTitle("The Cool Graph");
         test.setSize(x,y);
@@ -75,8 +82,8 @@ class Test extends JFrame{
         test.y=y;
         test.repaint();
         
-
-
+       
+ 
 
 
     }

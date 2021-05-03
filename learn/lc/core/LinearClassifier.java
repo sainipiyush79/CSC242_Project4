@@ -3,6 +3,7 @@ package learn.lc.core;
 import java.util.List;
 import java.util.Random;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import learn.math.util.VectorOps;
 
@@ -75,7 +76,8 @@ abstract public class LinearClassifier {
 	protected void trainingReport(List<Example> examples, int stepnum, int nsteps) {
 		double acc=accuracy(examples);
 		trainArr.add(acc);
-		// System.out.println(stepnum + "\t" + acc);
+		System.out.println(stepnum + "," + acc);
+		// System.out.println(Arrays.toString(this.weights));
 	}
 	
 	/**

@@ -21,8 +21,9 @@ public class PerceptronClassifier extends LinearClassifier {
     //mesay hw(x)=Threshold(w·x)
    public void update(double[] x, double y, double alpha) {
        // wi ←wi+α(y−hw(x))×xi
+       Double e=eval(x);
        for (int i = 0; i<weights.length; i++){
-            this.weights[i] = this.weights[i] + alpha*(y-eval(x))*x[i];
+            this.weights[i] = this.weights[i] + alpha*(y-e)*x[i];   
         }
    }
   

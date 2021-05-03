@@ -72,9 +72,9 @@ abstract public class LogisticLinearClassifier {
 	 * Subclasses can override it to gather statistics or update displays.
 	 */
 	protected void trainingReport(List<Example> examples, int stepnum, int nsteps) {
-		double acc= accuracy(examples);
+		double acc= 1-squaredErrorPerSample(examples);
 		trainArr.add(acc);
-		// System.out.println(stepnum + "\t" + acc);
+		// System.out.println(stepnum + "," + acc);
 	}
 
 	/**
@@ -84,6 +84,7 @@ abstract public class LogisticLinearClassifier {
 	public double squaredErrorPerSample(List<Example> examples) {
 		double sum = 0.0;
 		for (Example ex : examples) {
+			// a # between 0 and 1
 			double result = eval(ex.inputs);
 			double error = ex.output - result;
 			sum += error*error;
@@ -97,13 +98,4 @@ abstract public class LogisticLinearClassifier {
 	 * This is probably only meaningful for classifiers that use
 	 * a hard threshold. Use with care.
 	 */
-	public double accuracy(List<Example> examples) {
-		double ncorrect = 0;
-		for (Example ex : examples) {
-			double result = eval(ex.inputs);
-			ncorrect += result;
-		}
-		return (double)ncorrect / examples.size();
-	}
- 
 }
