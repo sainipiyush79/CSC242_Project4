@@ -5,7 +5,6 @@ import java.util.Arrays;
  
  
 public class PerceptronClassifier extends LinearClassifier {
-  
    public PerceptronClassifier(double[] weights) {
        super(weights);
    }
@@ -21,28 +20,13 @@ public class PerceptronClassifier extends LinearClassifier {
  
     //mesay hw(x)=Threshold(w·x)
    public void update(double[] x, double y, double alpha) {
-    //    double[] newt = {0, 0};
-
-    //    for (int i = 0; i<x.length-1; i++){
-    //        newt[i] = x[i+1];
-    //    }
-    //    System.out.println(Arrays.toString(newt));
- 
-    double e = this.eval(x);
-       for (int i = 0; i<this.weights.length; i++){
-           System.out.println("WEIGHTLENGTH:" + this.weights.length);
-           // System.out.println("eval:" + this.eval(x));
-      
-
-           this.weights[i] = this.weights[i] + alpha*(y-e)*x[i];
-           System.out.println("weight[i]: " + weights[i]);
-
-            }
-        
-          // System.out.println("alpha" + alpha + "threshold" + threshold(dot1(weights, x)));
+       // wi ←wi+α(y−hw(x))×xi
+       Double e=eval(x);
+       for (int i = 0; i<weights.length; i++){
+            this.weights[i] = this.weights[i] + alpha*(y-e)*x[i];   
         }
       //  System.out.println("W0: " +this.weights[0]);
-        
+    }
    
    
   

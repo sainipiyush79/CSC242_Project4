@@ -1,22 +1,20 @@
 package learn.lc.core;
-
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 import learn.math.util.VectorOps;
 
-abstract public class LinearClassifier {
+abstract public class LogisticLinearClassifier {
 	
 	public double[] weights;
 	public ArrayList<Double> trainArr = new ArrayList<Double>();
 
-	public LinearClassifier(double[] weights) {
+	public LogisticLinearClassifier(double[] weights) {
 		this.weights = weights;
 	}
 	
-	public LinearClassifier(int ninputs) {
+	public LogisticLinearClassifier(int ninputs) {
 		this.weights = new double[ninputs];
 	}
 	
@@ -38,7 +36,7 @@ abstract public class LinearClassifier {
 	 * This value is: Threshold(w \cdot x)
 	 */
 	public double eval(double[] x) {
-		return threshold(VectorOps.dot(this.weights, x));  
+		return threshold(VectorOps.dot(this.weights, x));
 	}
 	
 	/**
@@ -74,12 +72,11 @@ abstract public class LinearClassifier {
 	 * Subclasses can override it to gather statistics or update displays.
 	 */
 	protected void trainingReport(List<Example> examples, int stepnum, int nsteps) {
-		double acc=accuracy(examples);
+		double acc= 1-squaredErrorPerSample(examples);
 		trainArr.add(acc);
-		System.out.println(stepnum + "," + acc);
-		// System.out.println(Arrays.toString(this.weights));
+		// System.out.println(stepnum + "," + acc);
 	}
-	
+
 	/**
 	 * Return the squared error per example for this Linearlassifier
 	 * using the L2 (squared error) loss function.
@@ -87,6 +84,7 @@ abstract public class LinearClassifier {
 	public double squaredErrorPerSample(List<Example> examples) {
 		double sum = 0.0;
 		for (Example ex : examples) {
+			// a # between 0 and 1
 			double result = eval(ex.inputs);
 			double error = ex.output - result;
 			sum += error*error;
@@ -100,20 +98,4 @@ abstract public class LinearClassifier {
 	 * This is probably only meaningful for classifiers that use
 	 * a hard threshold. Use with care.
 	 */
-	public double accuracy(List<Example> examples) {
-		int ncorrect = 0;
-		for (Example ex : examples) {
-			//0 or 1
-			double result = eval(ex.inputs);
-			// based on the eval function(which is based on the H) does the example output match the H output
-			if (result == ex.output) {
-	
-				ncorrect += 1;
-			}
-
-		}
-		System.out.println("ncorrect:" + ncorrect);
-		return (double)ncorrect / examples.size();
-	}
- 
 }

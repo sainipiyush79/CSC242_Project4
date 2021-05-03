@@ -1,5 +1,7 @@
 package learn;//maybe change it later
 
+import javax.swing.*;
+import java.awt.Graphics;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -7,8 +9,27 @@ import java.util.ArrayList;
 import learn.lc.core.Example;
 import learn.lc.core.PerceptronClassifier;
 import learn.lc.core.DecayingLearningRateSchedule;
+import learn.lc.core.LogisticClassifier;
 
-class Test{
+class Test extends JFrame{
+    public ArrayList<Double> arr = new ArrayList<Double>();
+    public int x=0;
+    public int y=0;
+    public void paint(Graphics g){
+        int incrementX=0;
+        int yOffest=50;
+        
+        if(arr.size()!=0){
+            incrementX= arr.size()/x;
+        }
+        g.drawLine(0,50,x,50);
+        System.out.println(incrementX);
+        for(int i=1;i<arr.size()-1;i++){
+            int y1= y-(int)(arr.get(i-1)*y)+yOffest;
+            int y2= y-(int)(arr.get(i)*y)+yOffest;
+            g.drawLine((i-1)/incrementX,y1,i/incrementX,y2);
+        }
+    }
 
 
 
@@ -21,19 +42,17 @@ class Test{
             while (sc.hasNextLine()) {
                 String full = sc.nextLine();
                 String[] split= full.split(",");
-                double[] input= new double[split.length]; 
-                for(int i=0; i<input.length;i++){  //I KNOW WHAT THE PROBLEM IS. WE JUST NEED TO ADD A BIAS.
-                    if (i==0){
-                        input[i] = 1;  
+                double[] input= new double[split.length];
+                for(int i=0; i<input.length;i++){
+                    if(i==0){
+                        input[i]=1.0;
                     }
                     else{
-                  
-                    input[i]=Double.parseDouble(split[i-1]);
+                        input[i]=Double.parseDouble(split[i-1]);
                     }
                 }
                 double output= Double.parseDouble(split[split.length-1]);
                 Example example= new Example(input,output);
-                //  System.out.println(example.toString());
                 listOfExamples.add(example);
             }
             sc.close();
@@ -42,37 +61,29 @@ class Test{
             System.out.println("Didn't work boss");
             e.printStackTrace();
         }
-
-        for (int i = 0; i<listOfExamples.size(); i++){
-            // System.out.println(listOfExamples.get(i));
-        }
-
-
-// double[] myweights = {-4.9, 1.7, -1};
-// PerceptronClassifier perceptron= new PerceptronClassifier(myweights);
-// System.out.println( "BRO: " + perceptron.accuracy(listOfExamples));
-
-// double[] myweights = {1, 2, 3};
-
-PerceptronClassifier perceptron= new PerceptronClassifier(3);
-
-
-
-// for (int i =0; i< listOfExamples.size(); i++){
-//     System.out.println(listOfExamples.get(i));
-// }
-// System.out.println("DONKEY");
-
-
-
-        // DecayingLearningRateSchedule alpha = new DecayingLearningRateSchedule();
-        // PerceptronClassifier perceptron= new PerceptronClassifier(3);
-
-
-
-        perceptron.train(listOfExamples,700,0.95);
+        DecayingLearningRateSchedule alpha= new DecayingLearningRateSchedule();
+        //DONEEEEE
+        int x=700;
+        int y=500;
         
-  
+        PerceptronClassifier perceptron= new PerceptronClassifier(listOfExamples.get(0).inputs.length);
+        perceptron.train(listOfExamples,700, .95);
+        
+        // LogisticClassifier logistic= new LogisticClassifier(listOfExamples.get(0).inputs.length);
+        // logistic.train(listOfExamples,5000,0.05);
+        
+        Test test= new Test();
+        test.setTitle("The Cool Graph");
+        test.setSize(x,y);
+        test.setVisible(true);
+        test.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        test.arr=(ArrayList<Double>)perceptron.trainArr.clone();
+        test.x=x;
+        test.y=y;
+        test.repaint();
+        
+       
+ 
 
 
     }
