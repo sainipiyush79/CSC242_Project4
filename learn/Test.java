@@ -24,17 +24,16 @@ class Test extends JFrame{
         int incrementX=1;
         int yOffest=50;
         if(arr.size()!=0&&x!=0){
-            incrementX= arr.size()/x;
+            incrementX= (arr.size()/x)+1;
             if(incrementX<=0){
                 incrementX=1;
             }
         }
         g.drawLine(0,yOffest,x,yOffest);
-        
         for(int i=1;i<arr.size()-1;i++){
             int y1= y-(int)(arr.get(i-1)*y)+yOffest;
             int y2= y-(int)(arr.get(i)*y)+yOffest;
-            g.drawLine((i-1)/incrementX,y1,i/incrementX,y2);
+            g.drawLine((i-1)/incrementX,y1,i/incrementX,y2);     
         }
     }
 
@@ -139,60 +138,6 @@ class Test extends JFrame{
 
     }
 
-    
-
 
 
 }
-
-
-
-
-// package learn;//maybe change it later
-
-// import java.io.File;
-// import java.io.FileNotFoundException;
-// import java.util.Scanner;
-// import java.util.ArrayList;
-// import learn.lc.core.Example;
-// import learn.lc.core.PerceptronClassifier;
-
-
-// class Test{
-
-
-
-//     public static void main(String args[]){
-//         System.out.println("Hello world");
-//         File file = new File("learn/lc/examples/earthquake-clean.data.txt");
-//         ArrayList<Example> listOfExamples=new ArrayList<Example>();
-//         try {
-//             Scanner sc = new Scanner(file);
-//             while (sc.hasNextLine()) {
-//                 String full = sc.nextLine();
-//                 String[] split= full.split(",");
-//                 double[] input= new double[split.length-1];
-//                 for(int i=0; i<input.length;i++){
-//                     input[i]=Double.parseDouble(split[i]);
-//                 }
-//                 double output= Double.parseDouble(split[split.length-1]);
-//                 Example example= new Example(input,output);
-//                 listOfExamples.add(example);
-//             }
-//             sc.close();
-//         } 
-//         catch (FileNotFoundException e) {
-//             System.out.println("Didn't work boss");
-//             e.printStackTrace();
-//         }
-
-//         PerceptronClassifier perceptron= new PerceptronClassifier(listOfExamples.get(0).inputs.length);
-//         perceptron.train(listOfExamples,5000,200);
-
-
-
-//     }
-
-
-
-// }
