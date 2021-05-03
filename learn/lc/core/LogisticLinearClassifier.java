@@ -74,7 +74,7 @@ abstract public class LogisticLinearClassifier {
 	protected void trainingReport(List<Example> examples, int stepnum, int nsteps) {
 		double acc= 1-squaredErrorPerSample(examples);
 		trainArr.add(acc);
-		// System.out.println(stepnum + "," + acc);
+		System.out.println(stepnum + "\t" + acc);
 	}
 
 	/**
