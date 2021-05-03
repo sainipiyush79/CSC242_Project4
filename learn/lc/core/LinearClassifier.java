@@ -76,8 +76,7 @@ abstract public class LinearClassifier {
 	protected void trainingReport(List<Example> examples, int stepnum, int nsteps) {
 		double acc=accuracy(examples);
 		trainArr.add(acc);
-		System.out.println(stepnum + "," + acc);
-		// System.out.println(Arrays.toString(this.weights));
+		System.out.println(stepnum + "\t" + acc);
 	}
 	
 	/**
