@@ -1,4 +1,4 @@
-package learn;//maybe change it later
+package learn;//maybe change it later, nevermind
 
 import javax.swing.*;
 import java.awt.Graphics;
